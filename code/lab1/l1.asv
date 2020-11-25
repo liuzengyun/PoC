@@ -1,0 +1,11 @@
+clc,clear,close all
+f=-2:0.001:2;
+u=[0.5 0.707 0.5];
+t=[0 1 2];
+hh=u*exp(-1i*2*pi*f*t);
+h=hh(1)+hh(2)+hh(3);
+subplot(2, 1, 1)
+plot(f, h)
+subplot(2, 1, 2)
+plot(f,angle(h)/pi)
+grid on

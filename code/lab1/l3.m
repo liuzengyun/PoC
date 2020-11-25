@@ -1,39 +1,34 @@
-clc,clear,close all 
-a = rand(1,1000)<0.5;
-sample=8; %每个码元的抽样点数
-Ts=8;
-dt=1/sample; % 抽样时间间隔
-f=-2:0.01:2;
-N=100; % 码元数
-t=0:dt:(N*sample-1)*Ts*dt; 
-bt=0; 
-for i=1:500 
-    bt=bt+a(i)*((t>0+i*Ts)-(t>Ts+i*Ts)); 
+clc,clear,close all
+a = rand(1,100);%产生100个随机码元，0~1
+for i=1:length(a)%生成0，1序列
+   if a(i)<0.5
+       a(i)=0;
+   else 
+       a(i)=1;
+   end
+end
+
+sample=10;   %每码元抽10
+Ts=8;  %时延
+dt=1/sample;%抽样间隔
+t=0:dt:(100*sample-1)*Ts*dt;
+
+
+bt=0;%输入信号
+for i=1:100 
+    bt=bt+a(i)*((t>(0+i*Ts))-(t>(Ts+i*Ts)));
 end 
+subplot(2,1,1) 
+plot(t,bt) 
+axis([0,Ts*100,-0.2,1.2]);
+title('输入') 
+grid on 
+
+%输出信号
 st=0.5*bt+0.707*[zeros(1,sample),bt(1:length(t)-sample)]+0.5*[zeros(1,2*sample),bt(1:length(t)-2*sample)]; 
-subplot(2,2,1) 
-plot(t,bt,'LineWidth',2) 
-title(' 输入信号 ') 
+subplot(2,1,2) 
+plot(t,st) 
+axis([0,Ts*100,-0.2,2]);
+title('输出') 
 grid on 
-axis([0 150 0 1.5]); 
-SF=abs(sig_spec(bt,t,dt,f));
 
-subplot(2,2,2) 
-plot(f,SF,'LineWidth',2) 
-title(' 输入信号的幅度谱 ') 
-axis([-2 2  0 1000]); 
-
-grid on 
-subplot(2,2,3) 
-plot(t,st,'LineWidth',2) 
-title(' 输出信号 ') 
-grid on 
-axis([0 150 0 2]); 
-
-
-SF1=abs(sig_spec(st,t,dt,f)); 
-subplot(2,2,4) 
-plot(f,SF1,'LineWidth',2) 
-title(' 输出信号的幅度谱') 
-axis([-2 2 0 1000]); 
-grid on
