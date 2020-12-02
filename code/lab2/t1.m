@@ -1,8 +1,9 @@
+clc,clear,close all
 fc=10;  %载波信号频率
 df=0.1; %频域间隔
-f=0:df:1000;%频域横轴
+f=-20:df:20;%频域横轴
 dt=0.01;%时域时间间隔
-t=0:dt:10;%时域横轴
+t=-5:dt:5;%时域横轴
 
 
 mt=sqrt(2)*cos(2*pi*t);%消息信号
@@ -18,9 +19,9 @@ title('DSB信号的时域波形');
 grid on;
 
 subplot(2,1,2);
-plot(f,abs(SF).^2/t(end));
+plot(f,abs(SF));
 xlabel('f');
 ylabel('Ps');
 title('DSB信号的功率谱密度');
-axis([5 15 0 2]);
+axis([5 15 0 5]);
 grid on;

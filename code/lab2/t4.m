@@ -1,17 +1,15 @@
-fs=100; %调制信号mt的采样频率
-fc=10;   %载波信号频率
-df=0.1;
-f=0:df:600;
-h=1/fs;
-t1=0:h:10;
-A=2;
-mt=1.414*cos(2*pi*t1);
-mt1=1.414*sin(2*pi*t1);
-st=0.5*mt.*cos(2*pi*fc.*t1)-0.5*mt1.*sin(2*pi*fc.*t1);
-SFs=sig_spec(st,t1,h,f);
+fc=10;  %载波信号频率
+df=0.1; %频域间隔
+f=0:df:1000;%频域横轴
+dt=0.01;%时域时间间隔
+t=0:dt:10;%时域横轴
+mt=1.414*cos(2*pi*t);
+mt1=1.414*sin(2*pi*t);
+st=0.5*mt.*cos(2*pi*fc.*t)-0.5*mt1.*sin(2*pi*fc.*t);
+SF=sig_spec(st,t,dt,f);
 
 subplot(2,1,1);
-plot(t1,st);
+plot(t,st);
 axis([0 2 -1 1]);
 xlabel('t(s)');
 ylabel('st');
@@ -19,8 +17,8 @@ title('SSB信号时域波形');
 grid on;
 
 subplot(2,1,2);
-plot(f,abs(SFs).^2/t1(end));
-axis([5 15 0 1.5]);
+plot(f,abs(SF));
+axis([5 15 0 3.5]);
 xlabel('f(HZ)');
 ylabel('Ps');
 title('SSB信号功率谱');
