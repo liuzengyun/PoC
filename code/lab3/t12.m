@@ -1,30 +1,20 @@
-% 产生一个（+1，-1）的二元随机序列，画出其第一类部分响应系统的基带信号及其眼图
-% 文件名： first_bfxy.m
-Ts=1;
-N=16;
-eye_num=10;
+eye=10;
 N_data=1000;
-dt=Ts/N;
-t=-5*Ts:dt:5*Ts;
+dt=1.0/16;
+t=-5:dt:5;
 % 产生双极性数字信号
 d=sign(randn(1,N_data));
-dd=sigexpand(d,N);
+dd=sigexpand(d,16);
 % 部分响应系统冲击响应
-ht=sinc((t+eps)/Ts)./(1-(t+eps)./Ts);
-ht(6*N+1)=1;
+ht=sinc((t+eps))./(1-(t+eps));
+ht(6*16+1)=1;
 st=conv(dd,ht);
-tt=-5*Ts:dt:(N_data+5)*N*dt-dt;
-subplot(211);
-plot(tt,st);
-axis([0 20 -3 3]);
-xlabel('t/Ts');
-ylabel('部分响应基带信号');
+tt=-5:dt:(N_data+5)*16*dt-dt;
 % 画眼图
-subplot(212);
-ss=zeros(1,eye_num*N);
-ttt=0:dt:eye_num*N*dt-dt;
+ss=zeros(1,eye*16);
+ttt=0:dt:eye*16*dt-dt;
 for k=5:50
-   ss=st(k*N+1:(k+eye_num)*N);
+   ss=st(k*16+1:(k+eye)*16);
    drawnow;
    plot(ttt,ss);
     hold on;

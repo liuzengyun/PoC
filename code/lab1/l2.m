@@ -13,7 +13,6 @@ Ts=1;  %时延
 dt=1/sample;%抽样间隔
 t=0:dt:(100*sample-1)*Ts*dt;
 
-
 bt=0;%输入信号
 for i=1:100 
     bt=bt+a(i)*((t>(0+i*Ts))-(t>(Ts+i*Ts)));

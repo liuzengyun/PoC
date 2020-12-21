@@ -28,7 +28,7 @@ xlabel('t(s)');
 title('解调信号波形与原波形的比较');
 hold on;
 plot(t,mt);
-axis([-12 12 -2 2]);
+axis([-5 5 -2 2]);
 grid on;
 
 

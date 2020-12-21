@@ -5,7 +5,7 @@ h=1/fs;
 t1=-10:h:10;
 mt=sqrt(2)*cos(2*pi*t1);
 st1=mt.*cos(2*pi*fc.*t1);
-noise=sqrt(0.1)*rand(1,length(st1));
+noise=sqrt(0.1)*randn(1,length(st1));
 yn1=st1+noise;
 
 subplot(2,1,1);
